@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>George Varughese — Data Analyst | Zurich Workplace Solutions Application</title>
+<style>
+  :root {
+    --blue: #1B4F8A;
+    --blue-light: #2E75B6;
+    --blue-mid: #4A90D9;
+    --dark: #1A1A1A;
+    --mid: #444444;
+    --light: #F4F8FC;
+    --bg: #FFFFFF;
+    --card-bg: #FAFCFF;
+    --border: #DDE8F4;
+    --accent-bg: #EBF2FA;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--dark); background: var(--bg); line-height: 1.6; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--dark); padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between; height: 56px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+  }
+  .nav-brand { display: flex; align-items: center; gap: 12px; }
+  .nav-logo { font-size: 18px; font-weight: 800; color: white; letter-spacing: -0.5px; }
+  .nav-logo span { color: var(--blue-mid); }
+  .nav-tag { background: var(--blue); color: white; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 3px; letter-spacing: 1px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { color: #AAAAAA; text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--blue-mid); }
+
+  .hero {
+    padding: 140px 40px 80px;
+    background: linear-gradient(135deg, #0D1F35 0%, #1B3A5C 60%, #0D2440 100%);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%;
+    background: radial-gradient(ellipse at top right, rgba(27,79,138,0.35) 0%, transparent 70%);
+  }
+  .hero-inner { max-width: 900px; margin: 0 auto; position: relative; }
+  .hero-kicker { display: inline-flex; align-items: center; gap: 8px; background: rgba(27,79,138,0.25); border: 1px solid rgba(74,144,217,0.4); border-radius: 4px; padding: 6px 14px; margin-bottom: 24px; }
+  .hero-kicker span { color: var(--blue-mid); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+  .hero h1 { font-size: 52px; font-weight: 900; color: white; line-height: 1.08; letter-spacing: -1.5px; margin-bottom: 16px; }
+  .hero h1 em { color: var(--blue-mid); font-style: normal; }
+  .hero-subtitle { font-size: 18px; color: #AAAAAA; margin-bottom: 40px; max-width: 640px; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+  .badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; color: #CCCCCC; font-size: 12px; font-weight: 600; padding: 5px 12px; }
+  .badge.accent { background: rgba(27,79,138,0.25); border-color: rgba(74,144,217,0.4); color: #7EC8E3; }
+  .hero-contact { display: flex; flex-wrap: wrap; gap: 20px; }
+  .contact-item { color: #888; font-size: 14px; }
+  .contact-item strong { color: #CCC; }
+  .hero-cta { margin-top: 36px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 12px 28px; border-radius: 5px; font-size: 14px; font-weight: 700; text-decoration: none; transition: all 0.2s; letter-spacing: 0.3px; }
+  .btn-primary { background: var(--blue); color: white; }
+  .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); }
+  .btn-outline { border: 2px solid rgba(255,255,255,0.2); color: white; }
+  .btn-outline:hover { border-color: var(--blue-mid); color: var(--blue-mid); }
+
+  section { padding: 80px 40px; }
+  section:nth-child(even) { background: var(--light); }
+  .section-inner { max-width: 900px; margin: 0 auto; }
+  .section-label { font-size: 11px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+  .section-title { font-size: 32px; font-weight: 800; color: var(--dark); letter-spacing: -0.5px; margin-bottom: 8px; }
+  .section-sub { color: #777; font-size: 16px; margin-bottom: 48px; }
+
+  .personal-touch { background: linear-gradient(135deg, #EBF2FA, #D6E4F0); border-left: 5px solid var(--blue); border-radius: 0 10px 10px 0; padding: 32px 36px; margin-bottom: 32px; }
+  .personal-touch .pt-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+  .personal-touch h3 { font-size: 20px; font-weight: 800; color: var(--dark); margin-bottom: 12px; }
+  .personal-touch p { font-size: 15px; color: var(--mid); line-height: 1.7; }
+
+  .why-card { background: var(--accent-bg); border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 28px 32px; margin-bottom: 20px; }
+  .why-card h3 { font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+  .why-card p { font-size: 15px; color: var(--mid); line-height: 1.65; }
+
+  .reasons-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .reason-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 28px; position: relative; overflow: hidden; transition: box-shadow 0.2s; }
+  .reason-card:hover { box-shadow: 0 8px 32px rgba(27,79,138,0.12); }
+  .reason-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); }
+  .reason-num { font-size: 36px; font-weight: 900; color: rgba(27,79,138,0.12); line-height: 1; margin-bottom: 12px; }
+  .reason-card h3 { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 10px; line-height: 1.3; }
+  .reason-card p { font-size: 13.5px; color: var(--mid); line-height: 1.6; }
+
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .skill-block { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 22px 24px; }
+  .skill-block h4 { font-size: 13px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .skill-block p { font-size: 13.5px; color: var(--mid); line-height: 1.5; }
+
+  .job { margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
+  .job:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .job-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; flex-wrap: wrap; gap: 8px; }
+  .job-title { font-size: 18px; font-weight: 800; color: var(--dark); }
+  .job-company { font-size: 16px; font-weight: 700; color: var(--blue); }
+  .job-meta { font-size: 13px; color: #888; font-style: italic; margin-bottom: 16px; }
+  .job-bullets { list-style: none; padding: 0; }
+  .job-bullets li { position: relative; padding-left: 18px; font-size: 14.5px; color: var(--mid); margin-bottom: 8px; line-height: 1.6; }
+  .job-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--blue); font-size: 12px; top: 2px; }
+  .job-tag { display: inline-block; background: var(--accent-bg); color: var(--blue); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 3px; margin-right: 6px; margin-bottom: 10px; border: 1px solid rgba(27,79,138,0.2); }
+
+  .prog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .prog-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 24px; display: flex; gap: 16px; align-items: flex-start; }
+  .prog-icon { width: 44px; height: 44px; background: var(--accent-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .prog-info h4 { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+  .prog-info p { font-size: 13px; color: #777; }
+
+  .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .value-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 22px; }
+  .value-name { font-size: 12px; font-weight: 800; color: var(--blue); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+  .value-card p { font-size: 13.5px; color: var(--mid); line-height: 1.6; }
+
+  .cta-section { background: linear-gradient(135deg, #0D1F35, #1B3A5C); padding: 80px 40px; text-align: center; }
+  .cta-inner { max-width: 640px; margin: 0 auto; }
+  .cta-section h2 { font-size: 32px; font-weight: 900; color: white; margin-bottom: 16px; }
+  .cta-section p { color: #AAAAAA; font-size: 16px; margin-bottom: 36px; }
+  .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  footer { background: #111; padding: 32px 40px; text-align: center; color: #555; font-size: 13px; }
+
+  @media (max-width: 700px) {
+    .hero h1 { font-size: 34px; }
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .reasons-grid, .skills-grid, .prog-grid, .values-grid { grid-template-columns: 1fr; }
+    section { padding: 60px 20px; }
+    .hero { padding: 110px 20px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">George <span>Varughese</span></div>
+    <div class="nav-tag">Zurich Insurance Application</div>
+  </div>
+  <div class="nav-links">
+    <a href="#why">Why Zurich</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#programmes">Programmes</a>
+    <a href="#values">Values</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker"><span>Data Analyst · Zurich Workplace Solutions · DIFC, Dubai, UAE</span></div>
+    <h1>Turning complex data<br>into the insights that drive<br><em>financial transformation.</em></h1>
+    <p class="hero-subtitle">Data Analyst with hands-on SQL, Tableau, Power BI, Python, and production-grade data engineering experience — ready to support Zurich Workplace Solutions' Business Transformation team with the analytical rigour DEWS demands.</p>
+    <div class="hero-badges">
+      <span class="badge accent">SQL · MSSQL · PostgreSQL</span>
+      <span class="badge accent">Tableau · Power BI</span>
+      <span class="badge accent">Python · Power Query · Excel</span>
+      <span class="badge">Finance & Workplace Solutions Domain</span>
+      <span class="badge">Cross-Functional: Finance · Ops · CRM</span>
+      <span class="badge">McKinsey Forward · Oxford ML · HPAIR Harvard</span>
+    </div>
+    <div class="hero-contact">
+      <span class="contact-item">📞 <strong>+971 50 938 2514</strong></span>
+      <span class="contact-item">✉ <strong>georgevjr03@gmail.com</strong></span>
+      <span class="contact-item">📍 <strong>Dubai, UAE</strong></span>
+      <span class="contact-item">🪪 Valid UAE Residency Visa</span>
+      <span class="contact-item">🚗 Valid UAE Driving License</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#why" class="btn btn-primary">View Full Application</a>
+      <a href="mailto:georgevjr03@gmail.com" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAL TOUCH -->
+<section id="why">
+  <div class="section-inner">
+    <div class="section-label">A Different Starting Point</div>
+    <div class="section-title">This Application Has a Personal History</div>
+    <p class="section-sub">Most applications begin with a job posting. This one begins with a conversation.</p>
+
+    <div class="personal-touch">
+      <div class="pt-label">📌 Personal Note — For Taniya Baby &amp; Adelaida Ballecer</div>
+      <h3>You told me I belonged in IT and Analytics. I listened.</h3>
+      <p>When I first interviewed at Zurich Workplace Solutions — for the ZWS Service Centre Internship — both Mrs. Taniya Baby and Adelaida Ballecer noted that my profile was stronger than the internship required. They observed that my background in application development, data engineering, and IT systems positioned me for a different kind of role at ZWS: specifically, within the IT and analytics function. That conversation stayed with me. When this Data Analyst opening appeared, I recognised it as precisely the role they had in mind. I am not applying to Zurich because a role became available. I am applying because I already know this organisation, because people within it have already told me I belong in its analytics team, and because this role fits my profile with a precision that is genuinely rare.</p>
+    </div>
+
+    <div class="why-card">
+      <h3>📊 The mission matters to me — analytically and personally</h3>
+      <p>Zurich Workplace Solutions administers DEWS — the DIFC Employee Workplace Savings plan — delivering flexible, long-term financial security to employees across the UAE's most prestigious financial district. The Business Transformation team supporting this mission needs analysts who understand not just how to query data, but why the data matters: to real employees, to real employers, to a regulatory environment that demands precision. That is exactly how I approach analytical work.</p>
+    </div>
+    <div class="why-card">
+      <h3>🏦 Zurich's "What Can Go Right?" philosophy is how I think</h3>
+      <p>Zurich Insurance's stated approach — optimistic, forward-looking, asking what can go right rather than just what can go wrong — resonates with me as an analyst. The best data work is not defensive; it finds the opportunity in the pattern, the trend that unlocks a better decision, the insight that transforms how a business operates. That is what I want to bring to ZWS's Business Transformation mandate.</p>
+    </div>
+    <div class="why-card">
+      <h3>🌍 The DIFC context demands the highest analytical standards</h3>
+      <p>Operating within the DIFC — the UAE's premier international financial hub — means working at the intersection of financial services, regulatory compliance, and technology-driven transformation. Data accuracy, consistency, and governance are not aspirational here; they are operational requirements. That is the standard I already hold my analytical work to — and what I want to apply to Zurich's financial data environment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THREE REASONS -->
+<section>
+  <div class="section-inner">
+    <div class="section-label">Candidacy</div>
+    <div class="section-title">Three Reasons I Am the Right Analyst</div>
+    <p class="section-sub">Not just qualified — genuinely differentiated.</p>
+    <div class="reasons-grid">
+      <div class="reason-card">
+        <div class="reason-num">01</div>
+        <h3>I have done this job — for government clients, with 500+ live records, under zero-tolerance conditions.</h3>
+        <p>At Reach Group, I write complex SQL queries against live production databases, build dashboards for operational reporting, and use Python and Excel (Power Query) for data preparation and stakeholder reporting. At Emdad, I solo-led a mission-critical government data failure: 15% error rate, zero docs, active production. I rebuilt the pipeline and reduced error rate to under 2% (7× improvement) with zero downtime. That is the data accuracy standard ZWS demands.</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-num">02</div>
+        <h3>MIT-founded US engineering culture + European precision standards — a combination rare in this market.</h3>
+        <p>At Maura (MIT-founded AI startup), I built production data systems from scratch with full cross-timezone ownership across UAE, Sweden, and USA. My European internship exposure — including German operations — embedded the compliance-first, documentation-disciplined approach that financial services institutions like Zurich demand globally. That combination of US speed and European precision is what I bring to every data role.</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-num">03</div>
+        <h3>Globally selected for analytical excellence — McKinsey, Oxford, Harvard.</h3>
+        <p>McKinsey Forward Programme, Oxford Machine Learning Summer School (OxML 2025), HPAIR Harvard Delegate — each from thousands of global applicants. These reflect a standard of analytical rigour, structured thinking, and decision-making discipline I carry into every data environment I enter. And I already know Zurich — I have already met the team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">Technical Profile</div>
+    <div class="section-title">Core Analytical Competencies</div>
+    <p class="section-sub">Active capabilities from current production work — not aspirational.</p>
+    <div class="skills-grid">
+      <div class="skill-block">
+        <h4>SQL & Databases</h4>
+        <p>MSSQL · PostgreSQL · MySQL · SQLite · Complex query writing · Schema design · Data validation · Integrity management · 500+ live record systems in production</p>
+      </div>
+      <div class="skill-block">
+        <h4>Data Visualisation & Reporting</h4>
+        <p>Tableau · Power BI (dashboard development) · Interactive KPI dashboards · Operational reporting · Trend analysis · Stakeholder-ready visual outputs</p>
+      </div>
+      <div class="skill-block">
+        <h4>Excel & Power Query</h4>
+        <p>Advanced Excel functions · Power Query data transformation · Anomaly detection · Structured reporting templates · Data preparation pipelines for senior stakeholders</p>
+      </div>
+      <div class="skill-block">
+        <h4>Python & Data Engineering</h4>
+        <p>Data pipeline scripting · Validation logic · Data quality automation · Production-grade system rebuilds · REST API data integration · JSON/XML processing</p>
+      </div>
+      <div class="skill-block">
+        <h4>Cross-Functional Collaboration</h4>
+        <p>Finance · Operations · CRM team coordination · Requirements gathering · Translating analytical findings to non-technical stakeholders · JIRA-based delivery tracking</p>
+      </div>
+      <div class="skill-block">
+        <h4>Data Accuracy & Governance</h4>
+        <p>Root-cause analysis · SOPs · Incident documentation · Data-flow diagrams · Validation frameworks · Audit-ready analytical processes · 7× error reduction in production</p>
+      </div>
+      <div class="skill-block">
+        <h4>Cloud & Infrastructure</h4>
+        <p>AWS EC2/VPC/IAM (Certified) · Firebase · Server-side API integration · Pipeline monitoring · Docker basics · VMware concepts · Cloud data connectivity</p>
+      </div>
+      <div class="skill-block">
+        <h4>Domain Knowledge</h4>
+        <p>Financial services data exposure · Government-sector operational reporting · CRM-adjacent data pipelines · Regulatory-standard data handling · Workplace solutions context (DEWS)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label">Work History</div>
+    <div class="section-title">Professional Experience</div>
+    <p class="section-sub">Government-sector data management. MIT-standard engineering culture. Production analytics from first principles.</p>
+
+    <div class="job">
+      <div class="job-header">
+        <div>
+          <div class="job-title">Data & Systems Analyst</div>
+          <div class="job-company">Reach Group</div>
+        </div>
+        <div class="job-meta">Dubai, UAE · May 2025 – Present</div>
+      </div>
+      <div>
+        <span class="job-tag">SQL · MSSQL · PostgreSQL</span>
+        <span class="job-tag">Tableau · Power BI</span>
+        <span class="job-tag">Python · Power Query</span>
+        <span class="job-tag">Government-Sector</span>
+        <span class="job-tag">Stakeholder Reporting</span>
+      </div>
+      <ul class="job-bullets">
+        <li>Serve as the primary data and analytical support contact for UAE government-sector clients — extracting, transforming, and validating data from live systems to support business decisions and operational reporting.</li>
+        <li>Build and maintain interactive dashboards and reports tracking system performance, data pipeline health, and operational KPIs — enabling client teams to make data-driven decisions with real-time visibility.</li>
+        <li>Write complex SQL queries to extract, manipulate, and validate data across production databases (MSSQL, PostgreSQL) supporting 500+ live operational records; manage schema integrity and data accuracy standards.</li>
+        <li>Utilise Python and Excel (advanced functions, Power Query) for data preparation, transformation, anomaly detection, and structured reporting delivered directly to government stakeholders.</li>
+        <li>Liaise with government agency stakeholders to gather data requirements, troubleshoot data quality issues, and communicate analytical findings clearly to non-technical audiences.</li>
+        <li>Produce and maintain technical documentation: SOPs, data-flow diagrams, incident logs, and reporting templates — ensuring all analytical processes are reproducible and auditable.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div>
+          <div class="job-title">Data Systems Engineer <span style="font-weight:400;font-size:14px;color:#888">(Sole Technical Lead)</span></div>
+          <div class="job-company">Emdad Human Resources Company (Outsourced)</div>
+        </div>
+        <div class="job-meta">Riyadh, KSA (Remote from UAE) · Oct 2025 – Present</div>
+      </div>
+      <div>
+        <span class="job-tag">Production Data Remediation</span>
+        <span class="job-tag">Python Pipeline</span>
+        <span class="job-tag">Root-Cause Analysis</span>
+        <span class="job-tag">Zero Downtime</span>
+        <span class="job-tag">7× Error Reduction</span>
+      </div>
+      <ul class="job-bullets">
+        <li>Deployed as sole technical lead to remediate a mission-critical government data system failure: live API integration serving 500+ employee records with a 15% data error rate, zero documentation, active production use.</li>
+        <li>Conducted full root-cause analysis identifying three categories of transformation and integrity errors in the data ingestion pipeline — rebuilt validation and processing logic from scratch using Python.</li>
+        <li><strong style="color:#1B4F8A">Reduced data error rate from 15% to under 2% (7× improvement) in 6 weeks with zero downtime on the live operational system throughout.</strong></li>
+        <li>Delivered comprehensive documentation: incident report, root-cause analysis, data-flow diagrams, SOPs, and handover materials — enabling client's team to maintain data accuracy standards independently.</li>
+        <li>Coordinated with Saudi IT and operations personnel, handling sensitive government data with discretion, professionalism, and strict integrity standards aligned with regulatory requirements.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <div>
+          <div class="job-title">Technical Developer & Data Engineer</div>
+          <div class="job-company">Maura — MIT-Founded AI Startup</div>
+        </div>
+        <div class="job-meta">San Francisco, USA (Remote) · Aug 2023 – Jun 2024</div>
+      </div>
+      <div>
+        <span class="job-tag">Graph RAG · AI Systems</span>
+        <span class="job-tag">Firebase · Cloud Backend</span>
+        <span class="job-tag">US Engineering Culture</span>
+        <span class="job-tag">Cross-Timezone: UAE · Sweden · USA</span>
+        <span class="job-tag">MIT Heritage</span>
+      </div>
+      <ul class="job-bullets">
+        <li>Built production Graph RAG data systems and AI-powered analytical pipelines from first principles inside a US-culture, MIT-founded startup — full data ownership, no existing codebase, cross-timezone delivery.</li>
+        <li>Developed data integration pipelines connecting hardware sensor data (ARKit) with cloud backend systems (Firebase) — applying systematic data validation and structured analytical methodology.</li>
+        <li>Operated inside a high-performance US engineering culture with rigorous documentation standards, stakeholder communication discipline, and data ownership practices aligned with European analytical standards.</li>
+        <li>Coordinated with international stakeholders across UAE, Sweden, and USA — building the cross-functional communication skills central to Zurich's multi-team analytics environment.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMMES -->
+<section id="programmes">
+  <div class="section-inner">
+    <div class="section-label">Selective Programmes</div>
+    <div class="section-title">Certifications & Global Recognition</div>
+    <p class="section-sub">Selected from thousands of global applicants — not collected credentials, but demonstrated standards.</p>
+    <div class="prog-grid">
+      <div class="prog-card">
+        <div class="prog-icon">🏆</div>
+        <div class="prog-info">
+          <h4>McKinsey Forward Programme</h4>
+          <p>Globally competitive selection for rigorous analytical problem-solving, decision frameworks, and data-driven reasoning excellence.</p>
+        </div>
+      </div>
+      <div class="prog-card">
+        <div class="prog-icon">🎓</div>
+        <div class="prog-info">
+          <h4>Oxford ML Summer School (OxML 2025)</h4>
+          <p>University of Oxford — Generative AI & Machine Learning. Competitive global selection from research institutions worldwide.</p>
+        </div>
+      </div>
+      <div class="prog-card">
+        <div class="prog-icon">🌐</div>
+        <div class="prog-info">
+          <h4>HPAIR Harvard Delegate</h4>
+          <p>Harvard College Project for Asian & International Relations — selected from thousands of global applicants.</p>
+        </div>
+      </div>
+      <div class="prog-card">
+        <div class="prog-icon">☁️</div>
+        <div class="prog-info">
+          <h4>AWS Certified Cloud Practitioner</h4>
+          <p>Certified cloud infrastructure, data services, networking, and analytics fundamentals — active certification.</p>
+        </div>
+      </div>
+      <div class="prog-card">
+        <div class="prog-icon">💻</div>
+        <div class="prog-info">
+          <h4>Meta Developer Certification</h4>
+          <p>Professional-grade software engineering and development standards — analytical tooling and application development.</p>
+        </div>
+      </div>
+      <div class="prog-card">
+        <div class="prog-icon">🎓</div>
+        <div class="prog-info">
+          <h4>B.Tech Computer Science & Engineering</h4>
+          <p>IIIT Kottayam · 2021–2025 · Data Analysis · Databases · Machine Learning · Networking · Software Engineering · Cybersecurity</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES ALIGNMENT -->
+<section id="values">
+  <div class="section-inner">
+    <div class="section-label">Culture Fit</div>
+    <div class="section-title">Alignment with Zurich's Values</div>
+    <p class="section-sub">Integrity. Customer Focus. Sustainable Performance. What can go right? These are not values I have to learn.</p>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-name">Integrity</div>
+        <p>At Emdad, deployed alone into a live government data failure with zero documentation. My response: diagnose accurately, fix the root cause — not the symptom — and produce documentation so thorough the client's team could operate independently from day one. That is data integrity as a professional standard.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-name">What Can Go Right?</div>
+        <p>I approach data problems optimistically: finding the pattern that unlocks a better decision, the insight that transforms how a process runs. A 7× error-rate reduction at Emdad was not just fixing a problem — it was creating the data reliability that makes everything downstream better.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-name">Customer Focus</div>
+        <p>Both current roles involve direct engagement with government-sector clients. I gather requirements, translate complex analytical findings into clear business language, and ensure every insight is actionable. The ability to serve both Finance teams and C-suite stakeholders with the same clarity is a skill I have developed deliberately.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-name">Analytical Excellence</div>
+        <p>McKinsey Forward, Oxford ML School, HPAIR Harvard — each from thousands of global applicants. These reflect the standard of rigour and performance I hold myself to in every data environment. Selected for these programmes means operating above baseline across analytical, strategic, and communication dimensions.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-name">Sustainable Performance</div>
+        <p>Every data system I own is documented to a standard that allows others to operate it independently. From production dashboards at Reach Group to the full incident documentation at Emdad, I build analytical processes designed to last — audit-ready, reproducible, and maintainable beyond my own involvement.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-name">Diversity & Inclusion</div>
+        <p>Coordinated with international teams across UAE, Sweden, and USA. Fluent in English and Hindi, proficient in Malayalam and Arabic. Experienced working across European, US, and regional GCC organisational cultures. Genuinely able to collaborate across Zurich's diverse and multi-cultural DIFC environment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Ready to bring data-driven insight<br>to Zurich's Business Transformation.</h2>
+    <p>Valid UAE Residency Visa · UAE Driving License · Available Immediately · Comfortable with Financial Sector Background Checks</p>
+    <div class="cta-buttons">
+      <a href="mailto:georgevjr03@gmail.com" class="btn btn-primary">georgevjr03@gmail.com</a>
+      <a href="tel:+971509382514" class="btn btn-outline">+971 50 938 2514</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  George Varughese · Data Analyst Application · Zurich Workplace Solutions / Zurich Insurance, UAE · April 2026
+</footer>
+
+</body>
+</html>
